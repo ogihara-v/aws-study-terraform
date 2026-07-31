@@ -251,3 +251,6 @@ SSM Parameter Store / CloudWatch / CloudWatch Logs / SNS / AWS WAF (WAFv2)
 - 監視（CloudWatch Alarm/SNS）を実装、負荷テストによる発報・通知を確認
 - WAF（WebACL/ログ出力/ALB関連付け）を実装
 - outputsの整備、コードの構造整理（CFn版との対応が分かりやすいセクション分けに統一）
+
+## 提出について
+Terraform版の実装完了に伴い、提出用プルリクエストを作成しました。
