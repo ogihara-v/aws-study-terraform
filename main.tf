@@ -210,7 +210,7 @@ resource "aws_instance" "web" {
 #---------------------アプリ層------------------------
 
 #---------------------ロードバランサー層------------------------
-resource "aws_alb" "main" {
+resource "aws_lb" "main" {
   name               = "${var.project_name}-elb"
   load_balancer_type = "application" # ALBと指定
   internal           = false
@@ -257,7 +257,7 @@ resource "aws_lb_target_group_attachment" "web" {
 
 # ELBリスナー
 resource "aws_lb_listener" "main" {
-  load_balancer_arn = aws_alb.main.arn
+  load_balancer_arn = aws_lb.main.arn
   port              = 80
   protocol          = "HTTP"
 
@@ -389,10 +389,12 @@ resource "aws_cloudwatch_log_group" "waf_log" {
 resource "aws_wafv2_web_acl_logging_configuration" "main" {
   resource_arn            = aws_wafv2_web_acl.main.arn
   log_destination_configs = [aws_cloudwatch_log_group.waf_log.arn]
+
+  depends_on = [aws_cloudwatch_log_group.waf_log]
 }
 
 resource "aws_wafv2_web_acl_association" "main" {
-  resource_arn = aws_alb.main.arn
+  resource_arn = aws_lb.main.arn
   web_acl_arn  = aws_wafv2_web_acl.main.arn
 }
 #---------------------WAF設定------------------------

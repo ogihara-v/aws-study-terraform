@@ -1,6 +1,6 @@
 output "alb_dns_name" {
   description = "ALBのDNS名(アクセス確認用)"
-  value       = aws_alb.main.dns_name
+  value       = aws_lb.main.dns_name
 }
 
 output "rds_instance_endpoint" {
@@ -9,6 +9,11 @@ output "rds_instance_endpoint" {
 }
 
 output "alarm_topic_arn" {
-  description = "SNSトピックARN(購買確認・追加購読用)"
+  description = "SNSトピックARN(購読確認・追加購読用)"
   value = aws_sns_topic.alarm_topic.arn
+}
+
+output "ec2_public_ip" {
+  description = "Ec2のパブリックIPアドレス(SSH接続確認用)"
+  value = aws_instance.web.public_ip
 }
